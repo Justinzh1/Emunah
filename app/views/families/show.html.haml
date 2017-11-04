@@ -1,8 +1,0 @@
-.container
-  %h1 Information for the #{@family.family_name} Family
-  - flash.each do |type, msg|
-    %strong
-      = msg
-
-= link_to "Edit Family", edit_family_path(@family)
-= link_to "Delete Family", family_path(@family), :method => :delete

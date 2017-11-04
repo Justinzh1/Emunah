@@ -51,7 +51,7 @@ Scenario: block dashboard if logged out
   Then I should see "Welcome to Congregation B'nai Emunah's Internal Tool!"
 
 Scenario: logout and return to home page
-  When I fill in "Email" with "fake_seth@gmail.com"
+  When I fill in "Email" with "seth.martin@gmail.com"
   And I fill in "Password" with "123456"
   And I press "Log In"
   Then I should see "Welcome Seth Martin"

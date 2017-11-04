@@ -41,27 +41,17 @@ Scenario: only one unique family persists in database
   Then I should see "fam1 already exists."
 
 Scenario: update a family name
-  When I am on the family page for "fam1"
-  When I follow "Edit Family"
+  When I am on the edit family page for "fam1"
   When I fill in "Family Name" with "ultra_fam"
   And I press "Update Family"
   Then I should see "ultra_fam's family name was successfully updated."
 
-Scenario: check person information is in family edit
-  When I am on the family page for "fam1"
-  When I follow "Edit Family"
-  Then I should see "full1"
-
 Scenario: check person information 
-  When I am on the family page for "fam1"
-  When I follow "Edit Family"
-  When I follow "See Person Info"
-  Then I should see "Information for the full1 Person"
+  When I am on the show person page for "full1"
+  Then I should see "Showing information for full1"
 
 Scenario: add person to a family 
-  When I am on the family page for "fam1"
-  When I follow "Edit Family"
-  
+  When I am on the edit family page for "fam1"
   And I press "Add Person"
   And I fill in "full_name" with "full3"
   And I fill in "hebrew_name" with "hebrew3"
@@ -73,11 +63,9 @@ Scenario: add person to a family
   And I fill in "employer" with "emplo3"
   And I fill in "occupation" with "job3" 
   And I fill in "anniversary" with "non3"
-  And I fill in "is_child" with "False"
   And I press "Add"
   Then I should see "full3 was successfully added to fam1"
 
 Scenario: delete a family
-  When I am on the family page for "fam1"
-  When I follow "Delete Family"
+  When I delete family "wayne.li@gmail.com"
   Then I should see "Family deleted."

@@ -1,19 +1,26 @@
-%h1 Edit Family
-
-= form_tag family_path(@family), :method => :put do
-
-  = label :family, :family_name, 'Family Name'
-  = text_field :family, 'family_name'
-
-  = submit_tag 'Update Family'
-
 .container
-  - flash.each do |type, msg|
-    %strong
-      = msg
 
-.people-container
-  %h2 People in your Family
-  = react_component("PeopleList", {people: @people})
+  %h1.header-container
+    = "Edit Family: " + @family.family_name
+  %br
 
-= button_to 'Add Person', new_person_path, :method => :get
+  .container
+    - flash.each do |type, msg|
+      %strong
+        = msg
+
+  .jumbotron
+    = form_for(@family, html: {method: "patch"}) do
+      .row
+        = label :family, :family_name, 'Family Name'
+        %br
+        = text_field :family, 'family_name'
+      %br
+      .row
+        = submit_tag 'Update Family', class: "btn btn-default"
+
+  .people-container
+    %h2 People in your Family
+    = react_component("PeopleList", {people: @people})
+
+  = button_to 'Add Person', new_person_path, :method => :get

@@ -55,7 +55,7 @@
 			.row		
 				= label :person, :is_child, 'Is a child?'
 				%br
-				= text_field :person, 'is_child', :id => 'is_child'
+				= select :person, :is_child, ['Yes', 'No'], :id => 'is_child'
 			%br
 			.row		
 				= label :person, :discovery, 'How did you meet?'
@@ -81,6 +81,11 @@
 				= label :person, :committees, 'Committees?'
 				%br
 				= text_field :person, 'committees', :id => 'committees'
+			%br
+			.row		
+				= label :person, :allow_contact, 'Available for contact?'
+				%br
+				= select :person, :allow_contact, ['Yes', 'No'], :id => 'allow_contact'
 			%br
 			.row
 				= submit_tag 'Add'

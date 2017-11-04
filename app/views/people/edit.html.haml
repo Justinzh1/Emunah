@@ -1,0 +1,78 @@
+.container
+  %h1.header-container 
+    = "Edit Person: " + @person.full_name
+  %br
+
+  .jumbotron
+    = form_for("people", html: {method: "patch"}) do
+      .row      
+        = label :person, :full_name, 'Full Name'
+        %br
+        = text_field :person, 'full_name'
+      .row
+        = label :person, :hebrew_name, 'Hebrew Name'
+        %br
+        = text_field :person, 'hebrew_name'
+      .row
+        = label :person, :birthday, 'Birthday'
+        %br
+        = text_field :person, 'birthday'
+      .row
+        = label :person, :home_address, 'Home Address'
+        %br
+        = text_field :person, 'home_address'
+      .row
+        = label :person, :telephone, 'Telephone'
+        %br
+        = text_field :person, 'telephone'
+      .row
+        = label :person, :telephone_type, 'Telephone Type'
+        %br
+        = text_field :person, 'telephone_type'
+      .row
+        = label :person, :email_address, 'Email Address'
+        %br
+        = text_field :person, 'email_address'
+      .row
+        = label :person, :employer, 'Employer'
+        %br
+        = text_field :person, 'employer'
+      .row
+        = label :person, :occupation, 'Occupation'
+        %br
+        = text_field :person, 'occupation'
+      .row
+        = label :person, :anniversary, 'Anniversary'
+        %br
+        = text_field :person, 'anniversary'
+      .row
+        = label :person, :is_child, 'Is Child?'
+        %br
+        = select :person, :is_child, ['Yes', 'No']
+      .row
+        = label :person, :discovery, 'How did you meet this person?'
+        %br
+        = text_field :person, 'discovery'
+      .row
+        = label :person, :hobbies, 'Any hobbies?'
+        %br
+        = text_field :person, 'hobbies'
+      .row
+        = label :person, :skills, 'Any Skills?'
+        %br
+        = text_field :person, 'skills'
+      .row
+        = label :person, :activities, 'Any activities?'
+        %br
+        = text_field :person, 'activities'
+      .row
+        = label :person, :committees, 'Any committees?'
+        %br
+        = text_field :person, 'committees'
+      .row
+        = label :person, :allow_contact, 'Allow contact?'
+        %br
+        = select :person, :allow_contact, ['Yes', 'No']
+      %br
+      .row
+        = submit_tag 'Update Person', class: "btn btn-default"

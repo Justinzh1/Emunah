@@ -6,6 +6,9 @@ class FamilyList extends React.Component {
 
   handleDelete(id) {
     console.log("Delete " + id)
+    var families = this.state.families.filter((family) => {
+      return !(family.id === id);
+    })
     this.setState({
       families: families
     })
@@ -62,6 +65,7 @@ class FamilyListRow extends React.Component {
         credentials: 'same-origin'
       })
     }
+    this.props.handleDelete(this.props.family.id)
   }
 
 	render () {

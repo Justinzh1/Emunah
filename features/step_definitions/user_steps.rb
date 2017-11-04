@@ -4,20 +4,13 @@ Given("the following users exist:") do |table|
   end
 end
 
-When("I fill in {string} with Emunah") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
+When("I delete user {string}") do |string|
+  pending
+  
+  # I've tried this.
+  # user = User.find_by_email(string)
+  # visit "/user", :delete, :id => user.id
 
-When("I fill category with {string}") do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given("the following categories exist:") do |table|
-  # table is a Cucumber::MultilineArgument::DataTable
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given("the following items exist:") do |table|
-  # table is a Cucumber::MultilineArgument::DataTable
-  pending # Write code here that turns the phrase above into concrete actions
+  # I've also tried this.
+  # delete_user_path(User.find_by_email(string))
 end

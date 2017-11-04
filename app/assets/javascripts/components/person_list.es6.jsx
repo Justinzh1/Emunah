@@ -6,6 +6,9 @@ class PeopleList extends React.Component {
 
   handleDelete(id) {
     console.log("Delete " + id)
+    var people = this.state.people.filter((person) => {
+      return !(person.id === id);
+    })
     this.setState({
       people: people
     })
@@ -41,6 +44,16 @@ class PeopleList extends React.Component {
 
 class PeopleListRow extends React.Component {
 
+  constructor(props) {
+    super(props)
+    var edit = "people/" + this.props.person.id + "/edit"
+    var del = "people/" + this.props.person.id
+    this.state = {
+      edit: edit,
+      delete: del
+    }
+  }
+
   handleDelete() {
     var token = document.getElementsByName("csrf-token")[0].content;
     if (this.state.delete != null) {
@@ -52,6 +65,7 @@ class PeopleListRow extends React.Component {
         credentials: 'same-origin'
       })
     }
+    this.props.handleDelete(this.props.person.id)
   }
 
 	render () {

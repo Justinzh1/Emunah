@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @family = Family.find(params[:id])
+
   end
 
   def home
