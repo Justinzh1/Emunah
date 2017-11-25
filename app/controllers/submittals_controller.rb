@@ -20,6 +20,7 @@ class SubmittalsController < ApplicationController
     def index
         @user ||= User.find(session[:user_id]) if session[:user_id]
         @family = Family.find_by(params[:family_id])
+        @people = Person.people_per_family
         @submittals = @family.submittals
     end
 
