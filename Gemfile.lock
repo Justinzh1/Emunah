@@ -170,6 +170,8 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jquery-cdn (2.2.4)
+      sprockets (>= 2)
     json (2.1.0)
     json_pure (2.1.0)
     launchy (2.4.3)
@@ -395,6 +397,7 @@ DEPENDENCIES
   haml
   jasmine-rails
   jbuilder (~> 2.5)
+  jquery-cdn
   listen (>= 3.0.5, < 3.2)
   metric_fu
   pg

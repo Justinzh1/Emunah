@@ -41,6 +41,7 @@ gem 'bcrypt', :require => 'bcrypt'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'react-rails'
+gem 'jquery-cdn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

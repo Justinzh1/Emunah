@@ -20,4 +20,4 @@
   = button_to 'Families', families_path, :method => :get, class: "btn btn-default"
 
   %h2 Recent Submittal Entries
-  = react_component("SubmittalsList", {submittals: @submittals, role: @user.role, is_dash: "true"})
+  = react_component("SubmittalsList", {submittals: @submittals, people: @people, role: @user.role, is_dash: "true"})

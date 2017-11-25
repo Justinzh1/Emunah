@@ -30,24 +30,28 @@ f1 = Family.create({
 
 s1f1 = f1.submittals.build({
 	title: "Submittal A",
+	family_name: f1.family_name,
 	notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna libero, vestibulum id dui eu, semper euismod felis. Donec ornare neque ut sem dignissim, quis molestie nulla fringilla."
 	})
 s1f1.save!
 
 s2f1 = f1.submittals.build({
 	title: "Submittal B",
+	family_name: f1.family_name,
 	notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna libero, vestibulum id dui eu, semper euismod felis. Donec ornare neque ut sem dignissim, quis molestie nulla fringilla."
 	})
 s2f1.save!
 
 s3f1 = f1.submittals.build({
 	title: "Submittal C",
+	family_name: f1.family_name,
 	notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna libero, vestibulum id dui eu, semper euismod felis. Donec ornare neque ut sem dignissim, quis molestie nulla fringilla."
 	})
 s3f1.save!
 
 s4f1 = f1.submittals.build({
 	title: "Submittal D",
+	family_name: f1.family_name,
 	notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna libero, vestibulum id dui eu, semper euismod felis. Donec ornare neque ut sem dignissim, quis molestie nulla fringilla."
 	})
 s4f1.save!

@@ -1,6 +1,7 @@
 class SubmittalsList extends React.Component {
   constructor(props) {
     super(props)
+    window.people = this.props.people
     this.state = { ... props, submittals: this.props.submittals, total_submittals: this.props.submittals }
   }
 
@@ -15,38 +16,24 @@ class SubmittalsList extends React.Component {
 
   handleKeyPress(event) {
     str = String(event.target.value);
+    console.log(str)
     if (str == '') {
       this.setState({
-        submittals: this.state.total
+        submittals: this.state.total_submittals
       })
     } else {
-      var submittals = this.state.submittals.filter((family) => {
-        str = str.toLowerCase()
-
-        family_name = family['family_name'].toLowerCase().includes(str)
-        if (family_name) {
-          return family_name
+      str = str.toLowerCase()
+      var submittals = this.state.submittals.filter((submittal) => {
+        var title = submittal['title'].toLowerCase().includes(str)
+        if (title) {
+          return title 
+        }
+        var notes = submittal['notes'].toLowerCase().includes(str)
+        if (notes) {
+          return notes
         }
 
-        var people = JSON.parse(this.props.people[family.id])
-        for (var i=0; i<people.length; i++) {
-          var p = people[i]
-          var val = p.first_name + " " + p.last_name
-          console.log(val, str)
-          if (val.toLowerCase().includes(str)) {
-            return true
-          }
-        } 
-
-        var family_keys = Object.keys(family)
-        for (var i=0;i<family_keys.length;i++) {
-          var val = String(family[family_keys[i]])
-          if (val.toLowerCase().includes(str)) {
-            return true
-          }
-        }
-
-        return false
+        return submittal['family_name'].toLowerCase().includes(str)
       });
       this.setState({
         submittals: submittals
@@ -70,12 +57,12 @@ class SubmittalsList extends React.Component {
           is_dash={this.props.is_dash}
           family_name={submittal.family_name}
           family_id={submittal.family_id}
-          path={"/submittals/" + submittal.family_id}
+          path={"/families/" + submittal.family_id}
           handleDelete={(id) => this.handleDelete(id)}
           />
   		)
       submittals.push(
-        <tr>
+        <tr className="row-offset">
           <td className="no-border no-padding" colSpan={4}>
             <div className="well">
               {submittal.notes}
@@ -120,6 +107,48 @@ class SubmittalsList extends React.Component {
   }
 }
 
+class ActionDropDown extends ClickMixin {
+
+  constructor(props) {
+    super(props);
+    this.state = { ... props, dropdown: false}
+    this.handleDropdown = this.handleDropdown.bind(this)
+  }
+
+  handleDropdown() {
+    var drop = this.state.dropdown;
+    this.setState({
+      dropdown: !drop
+    })
+  }
+
+  _clickDocument(e) {
+    console.log("Clicked document")
+    this.handleDropdown()
+  }
+
+  render() {
+    var status = (!this.props.reviewed) ? 
+      (<a href={this.props.getStatusLink("approve")} className="btn btn-default margin-bot">Approve</a>) :
+      (<a href={this.props.getStatusLink("revoke")} className="btn btn-warning margin-bot">Revoke</a>);
+
+    var dropped = (this.state.dropdown) ? "action-dropdown" : "action-dropdown hidden";
+
+    return (
+      <td>
+        <button className="btn btn-default no-outline" onClick={this.handleDropdown} > Actions </button>
+        <div className={dropped}>
+          <a href={this.state.edit} className="btn btn-default margin-bot">Edit</a>
+          <br/>
+          {status}
+          <br/>
+          <button className="btn btn-danger margin-bot" onClick={() => this.props.handleDelete()}>Delete</button>
+        </div>
+      </td>
+    )
+  }
+}
+
 class SubmittalsListRow extends React.Component {
 
   constructor(props) {
@@ -135,7 +164,8 @@ class SubmittalsListRow extends React.Component {
       edit: edit,
       show: show,
       delete: del,
-      expanded: false
+      expanded: false,
+      dropdown: false
     }
   }
 
@@ -162,6 +192,13 @@ class SubmittalsListRow extends React.Component {
     return "/families/" + this.props.family_id + "/submittals/" + this.props.submittal.id + "/" + endpoint;
   }
 
+  handleDropdown() {
+    var drop = this.state.dropdown;
+    this.setState({
+      dropdown: !drop
+    })
+  }
+
 	render () {
     var name = (<a href={this.state.show}> {this.props.submittal.title}  </a>);
     var recent = 
@@ -175,14 +212,21 @@ class SubmittalsListRow extends React.Component {
        </td>
       ) : null;
     var status = (!this.props.reviewed) ? 
-      (<a href={this.getStatusLink("approve")} className="btn btn-default">Approve</a>) :
-      (<a href={this.getStatusLink("revoke")} className="btn btn-warning">Revoke</a>);
+      (<a href={this.getStatusLink("approve")} className="btn btn-default margin-bot">Approve</a>) :
+      (<a href={this.getStatusLink("revoke")} className="btn btn-warning margin-bot">Revoke</a>);
+
+    var dropped = (this.state.dropdown) ? "action-dropdown" : "action-dropdown hidden";
 
     var actions = (this.props.role == "admin") ? 
       (<td>
-        <a href={this.state.edit} className="btn btn-default">Edit</a>
-        {status} 
-        <button className="btn btn-danger" onClick={() => this.handleDelete()}>Delete</button>
+        <button className="btn btn-default no-outline" onClick={() => this.handleDropdown()} > Actions </button>
+        <div className={dropped}>
+          <a href={this.state.edit} className="btn btn-default margin-bot">Edit</a>
+          <br/>
+          {status} 
+          <br/>
+          <button className="btn btn-danger margin-bot" onClick={() => this.handleDelete()}>Delete</button>
+        </div>
        </td>
       ) : null;
     var status = (this.props.role == "admin") ?
@@ -192,12 +236,18 @@ class SubmittalsListRow extends React.Component {
       ) : null;
 
 		return (
-			<tr>
+			<tr rowSpan={2}>
 				<th scope="row">{name}</th>
         {recent}
         {status}
         {family}
-        {actions}
+        <ActionDropDown 
+          getStatusLink={(e) => this.getStatusLink(e)}
+          path={this.props.path}
+          role={this.props.role}
+          edit={this.state.edit}
+          handleDelete={() => this.handleDelete()}
+          />
 			</tr>
 		)
 	}
