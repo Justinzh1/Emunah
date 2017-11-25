@@ -20,7 +20,6 @@ class SubmittalsController < ApplicationController
     def index
         @user ||= User.find(session[:user_id]) if session[:user_id]
         @family = Family.find_by(params[:family_id])
-        @people = Family.people.pluck(:first_name, :last_name)
         @submittals = @family.submittals
     end
 
