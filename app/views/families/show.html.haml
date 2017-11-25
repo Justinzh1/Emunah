@@ -18,7 +18,7 @@
 
   .jumbotron 
     %h2 Recent Submittals
-    = react_component("SubmittalsList", {submittals: @submittals, role: @user.role, is_dash: "false"})
+    = react_component("SubmittalsList", {submittals: @submittals, role: @user.role, is_dash: "true"})
     = button_to "Create Submittal", new_family_submittal_path(@family.id), :method => :get, class: 'btn btn-default'
     %br
     = button_to 'View all submittals', family_submittals_path(@family), :method => :get, class: "btn btn-default"

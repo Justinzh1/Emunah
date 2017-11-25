@@ -76,6 +76,10 @@
 	padding-bottom: 10px;
 }
 
+.bot-padding-offset { 
+	padding-bottom: 30px !important;
+}
+
 .no-bot-padding {
 	padding-bottom: 0 !important;
 }
@@ -100,4 +104,8 @@
 
 .link:visited {
 	color: #6F9CF7;
+}
+
+.no-hover {
+	cursor: auto !important;	
 }

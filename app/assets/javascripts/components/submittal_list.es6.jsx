@@ -64,7 +64,7 @@ class SubmittalsList extends React.Component {
       submittals.push(
         <tr className="row-offset">
           <td className="no-border no-padding" colSpan={4}>
-            <div className="well">
+            <div className="well bot-padding-offset">
               {submittal.notes}
             </div>
           </td> 
@@ -107,7 +107,7 @@ class SubmittalsList extends React.Component {
   }
 }
 
-class ActionDropDown extends ClickMixin {
+class ActionDropDown extends React.Component {
 
   constructor(props) {
     super(props);
@@ -122,11 +122,6 @@ class ActionDropDown extends ClickMixin {
     })
   }
 
-  _clickDocument(e) {
-    console.log("Clicked document")
-    this.handleDropdown()
-  }
-
   render() {
     var status = (!this.props.reviewed) ? 
       (<a href={this.props.getStatusLink("approve")} className="btn btn-default margin-bot">Approve</a>) :
@@ -136,8 +131,7 @@ class ActionDropDown extends ClickMixin {
 
     return (
       <td>
-        <button className="btn btn-default no-outline" onClick={this.handleDropdown} > Actions </button>
-        <div className={dropped}>
+        <div className="action-dropdown">
           <a href={this.state.edit} className="btn btn-default margin-bot">Edit</a>
           <br/>
           {status}
@@ -229,9 +223,13 @@ class SubmittalsListRow extends React.Component {
         </div>
        </td>
       ) : null;
+
+    var statusBtn = (this.props.reviewed) ? (<p className="btn btn-success no-hover"> approved </p>) :
+      (<p className="btn btn-warning no-hover"> pending </p>)
+
     var status = (this.props.role == "admin") ?
       (<td>
-        <p> {(this.props.reviewed) ? "approved" : "pending"} </p>
+        {statusBtn}
       </td>
       ) : null;
 
